@@ -1,0 +1,121 @@
+<nav class="navbar navbar-light bg-primary">
+    <div class="container">
+        <h1 style="color:white ;">Angular CRUD</h1>
+        <div class="d-flex">
+            <button type="button" (click)="clickAddEmployee()" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                class="btn btn-success">Add
+                Employee</button>
+        </div>
+    </div>
+</nav>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th scope="col">Employee Id</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let row of employeeData">
+            <td>{{row.id}}</td>
+            <td>{{row.Firstname}}</td>
+            <td>{{row.Lastname}}</td>
+            <td>{{row.Email}}</td>
+            <td>{{row.Phone}}</td>
+            <td>{{row.Salary}}</td>
+            <td class="d-flex align-items-start">
+                <button (click)="onEdit(row)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    class="btn btn-info">Edit</button>
+                <button (click)="deleteEmployee(row)" class="btn btn-danger ms-1 ">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Employee Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+
+                <form [formGroup]="formValue" class="row needs-validation" novalidate>
+
+                    <div class="mb-3">
+                        <label for="Firstname" class="form-label">Firstname</label>
+                        <input type="text" formControlName="Firstname" class="form-control" id="Firstname"
+                            placeholder="Ram" required is-invalid />
+                        <div class="text-danger"
+                            *ngIf="Firstname?.invalid && Firstname?.touched ">*Enter
+                            Your Firstname</div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="Lastname" class="form-label">Lastname</label>
+                        <input type="text" formControlName="Lastname" class="form-control" id="Lastname"
+                            placeholder="Srivastava" required />
+                        <div class="text-danger"
+                            *ngIf="Lastname?.invalid && Lastname?.touched ">*Enter
+                            Your
+                            Lastname</div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="Email" class="form-label">Email address</label>
+                        <input type="email" formControlName="Email" class="form-control" id="Email"
+                            placeholder="xyz@gmail.com" required />
+                        <div class="text-danger"
+                            *ngIf="Email?.invalid && Email?.touched ">*Enter a Valid
+                            Email</div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="number" formControlName="Phone" class="form-control" id="phone"
+                            placeholder="1234567890" required />
+                        <div class="text-danger"
+                            *ngIf="Phone?.invalid && Phone?.touched ">*Enter a Valid
+                            Phone Number</div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="salary" class="form-label">salary</label>
+                        <input type="number" formControlName="Salary" class="form-control" id="salary"
+                            placeholder="10000" required />
+                        <div class="text-danger"
+                            *ngIf="Salary?.invalid && Salary?.touched ">*Enter Proper
+                            Salary</div>
+                    </div>
+
+                </form>
+                <div class="modal-footer">
+                    <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" *ngIf="showAdd" (click)="postEmployeeDetails()" class="btn btn-primary"
+                        [disabled]="!formValue.valid">Add</button>
+                    <button type="button" *ngIf="showUpdate" (click)="updateEmployeeDetails()"[disabled]="!formValue.valid"
+                        class="btn btn-primary">Update</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
