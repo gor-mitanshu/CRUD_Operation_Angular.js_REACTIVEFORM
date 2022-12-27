@@ -24,13 +24,12 @@ export class EmployeeDashboardComponent implements OnInit {
       'Firstname': new FormControl(null, Validators.required),
       'Lastname': new FormControl(null, Validators.required),
       'Email': new FormControl(null, [Validators.required, Validators.email]),
-      'Phone': new FormControl(null, [Validators.required, Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$')]),
+      'Phone': new FormControl(null, [Validators.required, Validators.pattern( /^[789][0-9]{9}$/)]),
       'Salary': new FormControl(null, [Validators.required, Validators.pattern('^([1-9][0-9]{1,3}|10000)$')]),
 
     })
     this.getAllEmployee();
   }
-
 
 
   get Firstname() {
@@ -54,15 +53,11 @@ export class EmployeeDashboardComponent implements OnInit {
   }
 
 
-
-
-clickAddEmployee(){
-  this.formValue.reset();
-  this.showAdd = true;
-  this.showUpdate = false;
-}
-
-
+  clickAddEmployee() {
+    this.formValue.reset();
+    this.showAdd = true;
+    this.showUpdate = false;
+  }
 
 
   postEmployeeDetails() {
@@ -85,7 +80,6 @@ clickAddEmployee(){
           alert('Something went wrong');
         })
   }
-
 
 
   getAllEmployee() {
